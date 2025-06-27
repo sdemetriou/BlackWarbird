@@ -13,7 +13,9 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
     private bool jumpPressed;
-
+    public bool isAttacking = false;
+    private float attackDuration = 0.5f;
+    private float attackTimer = 0f;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,12 +26,51 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        GetComponent<Health>().onDeathCallback += HandleDeath;
+
     }
+    void HandleDeath()
+    {
+        Destroy(gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Health health = GetComponent<Health>();
+            if (health != null)
+            {
+                health.TakeDamage(10);
+                Debug.Log("Player was hit!");
+            }
+        }
+    }
+
 
 
     void Update()
     {
         SetVelocity();
+        if (Input.GetMouseButtonDown(0) && !isAttacking)
+        {
+            isAttacking = true;
+            attackTimer = attackDuration;
+            anim.SetBool("attack", true);
+            anim.SetBool("idle", false);
+            anim.SetBool("walk", false);
+            anim.SetBool("jump", false);
+        }
+
+        if (isAttacking)
+        {
+            attackTimer -= Time.deltaTime;
+            if (attackTimer <= 0f)
+            {
+                isAttacking = false;
+                anim.SetBool("attack", false);
+            }
+        }
     }
 
 
