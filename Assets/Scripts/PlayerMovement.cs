@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     private Animator anim;
-    private bool facingRight = true;
+    public bool facingRight = true;
     public float moveSpeed = 5f;
     public float jumpForce = 12f;
     public Transform groundCheck;
@@ -16,6 +16,13 @@ public class PlayerMovement : MonoBehaviour
     public bool isAttacking = false;
     private float attackDuration = 0.5f;
     private float attackTimer = 0f;
+    public float damageRate = 0.2f;
+    private float damageTimer = 0f;
+
+    private HashSet<Collider2D> damagedEnemies = new HashSet<Collider2D>();
+
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,33 +36,15 @@ public class PlayerMovement : MonoBehaviour
         GetComponent<Health>().onDeathCallback += HandleDeath;
 
     }
-    void HandleDeath()
-    {
-        Destroy(gameObject);
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            Health health = GetComponent<Health>();
-            if (health != null)
-            {
-                health.TakeDamage(10);
-                Debug.Log("Player was hit!");
-            }
-        }
-    }
-
-
 
     void Update()
     {
         SetVelocity();
-        if (Input.GetMouseButtonDown(0) && !isAttacking)
+        if (Input.GetMouseButtonDown(0))
         {
             isAttacking = true;
             attackTimer = attackDuration;
+            damagedEnemies.Clear();
             anim.SetBool("attack", true);
             anim.SetBool("idle", false);
             anim.SetBool("walk", false);
@@ -69,9 +58,40 @@ public class PlayerMovement : MonoBehaviour
             {
                 isAttacking = false;
                 anim.SetBool("attack", false);
+                Debug.Log("Player attack ended!");
             }
         }
     }
+
+    void HandleDeath()
+    {
+        // gameObject.SetActive(false);
+        Destroy(gameObject);
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            damageTimer -= Time.deltaTime;
+            if (damageTimer <= 0f)
+            {
+                Health health = GetComponent<Health>();
+                if (health != null)
+                {
+                    health.TakeDamage(10);
+                    damagedEnemies.Add(other); // Add to prevent double-hit
+                    Debug.Log("Player was hit!");
+                }
+                damageTimer = damageRate;
+            }
+
+        }
+    }
+
+
+
+
 
 
     void SetVelocity()

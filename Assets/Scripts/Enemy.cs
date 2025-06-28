@@ -10,11 +10,13 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private Vector2 startPosition;
-    private float direction = 1;
+    private float direction = 1f;
     bool facingLeft = true;
     private GameObject player;
     private bool chase;
     private bool attacked;
+    private float damageCooldown = 0.5f;
+    private float damageTimer = 0f;
 
     void Awake()
     {
@@ -37,16 +39,26 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && attacked)
+        if (other.CompareTag("Player") && damageTimer <= 0f)
         {
-            Health health = GetComponent<Health>();
-            if (health != null)
+            var player = other.GetComponent<PlayerMovement>();
+            var dist = transform.position.x - player.gameObject.transform.position.x;
+
+
+            if (player && player.isAttacking && ((dist > 0 && player.facingRight) || (dist < 0 && !player.facingRight)))
             {
-                health.TakeDamage(10);
-                Debug.Log("Enemy hit player!");
+                Debug.Log("OUCH!");
+                Health health = GetComponent<Health>();
+                if (health != null)
+                {
+                    health.TakeDamage(10);
+                    damageTimer = damageCooldown;
+                    Debug.Log("Enemy hit player!");
+                }
             }
+
         }
     }
 
@@ -59,19 +71,21 @@ public class Enemy : MonoBehaviour
             var playerPos = player.transform.position;
             float distToPlayer = Vector2.Distance(transform.position, playerPos);
             chase = distToPlayer < chaseRange;
-
-            if (chase)
-            {
-                Chase();
-            }
-            else
-                Patrol();
         }
+        if (chase && player)
+        {
+            Chase();
+        }
+        else
+            Patrol();
+
 
     }
 
     void Update()
     {
+        if (damageTimer > 0)
+            damageTimer -= Time.deltaTime;
         if (player) attacked = player.gameObject.GetComponent<PlayerMovement>().isAttacking;
 
     }
