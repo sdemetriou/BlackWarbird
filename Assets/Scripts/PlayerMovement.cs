@@ -58,7 +58,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 isAttacking = false;
                 anim.SetBool("attack", false);
-                Debug.Log("Player attack ended!");
             }
         }
     }
@@ -81,18 +80,12 @@ public class PlayerMovement : MonoBehaviour
                 {
                     health.TakeDamage(10);
                     damagedEnemies.Add(other); // Add to prevent double-hit
-                    Debug.Log("Player was hit!");
                 }
                 damageTimer = damageRate;
             }
 
         }
     }
-
-
-
-
-
 
     void SetVelocity()
     {

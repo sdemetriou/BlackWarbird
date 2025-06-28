@@ -49,13 +49,11 @@ public class Enemy : MonoBehaviour
 
             if (player && player.isAttacking && ((dist > 0 && player.facingRight) || (dist < 0 && !player.facingRight)))
             {
-                Debug.Log("OUCH!");
                 Health health = GetComponent<Health>();
                 if (health != null)
                 {
                     health.TakeDamage(10);
                     damageTimer = damageCooldown;
-                    Debug.Log("Enemy hit player!");
                 }
             }
 
