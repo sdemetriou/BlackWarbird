@@ -53,21 +53,17 @@ public class PlayerSensor : MonoBehaviour
                 zombieCount++;
         }
         enemyInRangeCountTxt.text = $"Sensor detected {zombieCount} Zombies!";
-        
+
         //$"Sensor detected {zombieCount} Zombies!";
         //Debug.Log($"Sensor detected {zombieCount} Zombies!");
     }
 
     void ThrowSensor()
     {
-        // Get direction the player is facing
         Vector2 direction = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
 
-        // Calculate the spawn position a few units ahead
         Vector2 spawnPos = (Vector2)transform.position + direction * throwDistance;
 
-        // Instantiate the sensor
-        // Instantiate(sensorPrefab, spawnPos, Quaternion.identity);
         Debug.Log($"Sensor thrown to {spawnPos}");
     }
 }

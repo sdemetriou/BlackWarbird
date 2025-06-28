@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private float damageTimer = 0f;
 
     private HashSet<Collider2D> damagedEnemies = new HashSet<Collider2D>();
-
+    public Transform groundPos;
 
 
     void Awake()
@@ -66,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // gameObject.SetActive(false);
         Destroy(gameObject);
+        SceneManager.LoadScene("SampleScene", 0);
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -104,7 +106,9 @@ public class PlayerMovement : MonoBehaviour
 
     bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+        bool IsGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundPos.transform.position.y, groundLayer);
+        Debug.Log("Grounded: " + IsGrounded);
+        return IsGrounded;
     }
 
     void Flip()
