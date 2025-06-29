@@ -11,6 +11,15 @@ public class MenuController : MonoBehaviour
 
   private bool MenuToggle;
 
+  public WeaponAbilities weaponScriptInstance;
+  private List<Dictionary<string, string>> abilityPipeline;
+
+  void Awake()
+  {
+    abilityPipeline = new List<Dictionary<string, string>>();
+    GameObject weapon = GameObject.Find("weapon");
+    weaponScriptInstance = weapon.GetComponent<WeaponAbilities>();
+  }
   void Start()
   {
     MenuToggle = true;
@@ -27,6 +36,7 @@ public class MenuController : MonoBehaviour
     }
     else
     {
+      weaponScriptInstance.createPipeline(abilityPipeline);
       menuToggle();
       unpauseGame();
     }
