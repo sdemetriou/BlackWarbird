@@ -6,6 +6,9 @@ public class WeaponAbilities : MonoBehaviour
 {
   // Start is called before the first frame update
   public GameObject mainWeapon;
+  public Transform muzzle;
+
+  public GameObject plasmaProjectile;
   void Start()
   {
   }
@@ -39,6 +42,8 @@ public class WeaponAbilities : MonoBehaviour
       switch (action)
       {
         case "SHOOT_PROJ_PLASMA":
+          // spawns plasma projectile
+          Instantiate(plasmaProjectile, muzzle.position, muzzle.rotation);
           break;
       }
     }
