@@ -9,7 +9,7 @@ public class MenuController : MonoBehaviour
   // The menu panel object
   public GameObject menuPanel;
 
-  private bool MenuToggle;
+  private bool MenuState;
 
   public WeaponAbilities weaponScriptInstance;
   private List<Dictionary<string, string>> abilityPipeline;
@@ -22,8 +22,7 @@ public class MenuController : MonoBehaviour
   }
   void Start()
   {
-    MenuToggle = true;
-    menuToggle();
+    MenuState = false;
   }
 
   // Update is called once per frame
@@ -31,28 +30,21 @@ public class MenuController : MonoBehaviour
   {
     if (Input.GetKeyDown(KeyCode.M))
     {
-      menuToggle();
-      pauseGame();
+      MenuState = !MenuState;
+      if (MenuState)
+      {
+        Debug.Log("Test");
+        menuPanel.SetActive(true);
+        Time.timeScale = 0f;
+        MenuState = true;
+      }
+      else
+      {
+        weaponScriptInstance.createPipeline(abilityPipeline);
+        menuPanel.SetActive(false);
+        Time.timeScale = 1f;
+        MenuState = false;
+      }
     }
-    else
-    {
-      weaponScriptInstance.createPipeline(abilityPipeline);
-      menuToggle();
-      unpauseGame();
-    }
-  }
-
-  void menuToggle()
-  {
-    MenuToggle = !MenuToggle;
-    menuPanel.SetActive(MenuToggle);
-  }
-  void pauseGame()
-  {
-    Time.timeScale = 0;
-  }
-  void unpauseGame()
-  {
-    Time.timeScale = 1;
   }
 }
