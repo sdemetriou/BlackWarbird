@@ -16,7 +16,14 @@ public class WeaponAbilities : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-
+    if (Input.GetKeyDown(KeyCode.F))
+    {
+      List<string> actions = new List<string>() {"SHOOT_PROJ_PLASMA"};
+      Dictionary<string, List<string>> actionDict = new Dictionary<string, List<string>>();
+      actionDict.Add("GunTransAction", actions);
+      executor(actionDict);
+      Debug.Log("F pressed");
+    }
   }
 
   Dictionary<string, string> GunSourceAbility(string gunSourceAction)
