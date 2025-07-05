@@ -37,20 +37,20 @@ public class MenuController : MonoBehaviour
       {
         Debug.Log("Test");
 
-        menuPanel.SetActive(true);
-        firePlasmaSrcButton.SetActive(true);
-        firePlasmaSrcButtonFunction.SetActive(true);
+        //menuPanel.SetActive(true);
+        //firePlasmaSrcButton.SetActive(true);
+        //firePlasmaSrcButtonFunction.SetActive(true);
 
         Time.timeScale = 0f;
         MenuState = true;
       }
       else
       {
-        weaponScriptInstance.createPipeline(abilityPipeline);
+        //weaponScriptInstance.createPipeline(abilityPipeline);
 
-        menuPanel.SetActive(false);
-        firePlasmaSrcButton.SetActive(false);
-        firePlasmaSrcButtonFunction.SetActive(false);
+        //menuPanel.SetActive(false);
+        //firePlasmaSrcButton.SetActive(false);
+        //firePlasmaSrcButtonFunction.SetActive(false);
 
         Time.timeScale = 1f;
         MenuState = false;
