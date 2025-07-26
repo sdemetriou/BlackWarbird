@@ -11,16 +11,36 @@ public class MenuController : MonoBehaviour
   [SerializeField] private GameObject firePlasmaSrcButton;
   [SerializeField] private GameObject firePlasmaSrcButtonFunction;
 
+  private List<Dictionary<string, string>> abilityPipeline;
+
+  private Dictionary<string, abilityStatusCodes> abilitySettings;
+  // Meant to be used to set the status of abilities in abilitySettings
+  public enum abilityStatusCodes
+  {
+    uncollected,
+    collected,
+    disabled
+  }
+
   private bool MenuState;
 
   public WeaponAbilities weaponScriptInstance;
-  private List<Dictionary<string, string>> abilityPipeline;
+
+  public void setAbilitySetting(string abilityName, abilityStatusCodes statusCode)
+  {
+    abilitySettings[abilityName] = statusCode;
+  }
 
   void Awake()
   {
     abilityPipeline = new List<Dictionary<string, string>>();
     GameObject weapon = GameObject.Find("weapon");
     weaponScriptInstance = weapon.GetComponent<WeaponAbilities>();
+
+    abilitySettings = new Dictionary<string, abilityStatusCodes>()
+    {
+      {"plasmaSrc", abilityStatusCodes.uncollected}
+    };
   }
   void Start()
   {
@@ -30,6 +50,7 @@ public class MenuController : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+    Debug.Log(abilitySettings["plasmaSrc"]);
     if (Input.GetKeyDown(KeyCode.M))
     {
       MenuState = !MenuState;
