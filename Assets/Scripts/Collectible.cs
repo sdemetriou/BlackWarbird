@@ -9,7 +9,7 @@ public class Collectible : MonoBehaviour
 
     void Awake()
     {
-      abilityType = "plasmaSrc";
+      abilityType = "FirePlasmaSrc";
     }
     
     void Start()

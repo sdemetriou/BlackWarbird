@@ -33,13 +33,14 @@ public class MenuController : MonoBehaviour
 
   void Awake()
   {
+    menuPanel.SetActive(false);
     abilityPipeline = new List<Dictionary<string, string>>();
     GameObject weapon = GameObject.Find("weapon");
     weaponScriptInstance = weapon.GetComponent<WeaponAbilities>();
 
     abilitySettings = new Dictionary<string, abilityStatusCodes>()
     {
-      {"plasmaSrc", abilityStatusCodes.uncollected}
+      {"FirePlasmaSrc", abilityStatusCodes.uncollected}
     };
   }
   void Start()
@@ -50,7 +51,7 @@ public class MenuController : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    Debug.Log(abilitySettings["plasmaSrc"]);
+    Debug.Log(abilitySettings["FirePlasmaSrc"]);
     if (Input.GetKeyDown(KeyCode.M))
     {
       MenuState = !MenuState;
@@ -58,18 +59,32 @@ public class MenuController : MonoBehaviour
       {
         Debug.Log("Test");
 
-        //menuPanel.SetActive(true);
-        //firePlasmaSrcButton.SetActive(true);
-        //firePlasmaSrcButtonFunction.SetActive(true);
+        menuPanel.SetActive(true);
 
         Time.timeScale = 0f;
         MenuState = true;
+
+// Needs to be able to figure out which buttons to make appear on the menu depending on what abilities the player collected.
+        GameObject[] srcAbilityButtons = GameObject.FindGameObjectsWithTag("SourceAbilityButton");
+        GameObject srcAbilityButton = srcAbilityButtons[0];
+
+
+        switch (abilitySettings["FirePlasmaSrc"])
+        {
+          case abilityStatusCodes.collected:
+            srcAbilityButton.SetActive(true);
+            break;
+          case abilityStatusCodes.uncollected:
+            srcAbilityButton.SetActive(false);
+            break;
+        }
+
       }
       else
       {
         //weaponScriptInstance.createPipeline(abilityPipeline);
 
-        //menuPanel.SetActive(false);
+        menuPanel.SetActive(false);
         //firePlasmaSrcButton.SetActive(false);
         //firePlasmaSrcButtonFunction.SetActive(false);
 
