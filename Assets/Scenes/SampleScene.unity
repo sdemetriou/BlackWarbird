@@ -781,6 +781,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ee199a41ebb254fb6e35105dfdd932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &577132460
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 577132461}
+  m_Layer: 0
+  m_Name: ObjectDatabase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &577132461
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577132460}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 371.6221, y: 423.36298, z: -1939.2009}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &688588253
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,11 +984,11 @@ GameObject:
   - component: {fileID: 814930780}
   m_Layer: 5
   m_Name: Image
-  m_TagString: SourceAbilityButton
+  m_TagString: FireSrcButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &814930779
 RectTransform:
   m_ObjectHideFlags: 0

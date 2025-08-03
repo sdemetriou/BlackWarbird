@@ -25,6 +25,7 @@ public class MenuController : MonoBehaviour
   private bool MenuState;
 
   public WeaponAbilities weaponScriptInstance;
+  private Dictionary<string, GameObject> abilityButtons;
 
   public void setAbilitySetting(string abilityName, abilityStatusCodes statusCode)
   {
@@ -41,6 +42,10 @@ public class MenuController : MonoBehaviour
     abilitySettings = new Dictionary<string, abilityStatusCodes>()
     {
       {"FirePlasmaSrc", abilityStatusCodes.uncollected}
+    };
+
+    abilityButtons = new Dictionary<string, GameObject>()
+    {
     };
   }
   void Start()
@@ -64,21 +69,27 @@ public class MenuController : MonoBehaviour
         Time.timeScale = 0f;
         MenuState = true;
 
-// Needs to be able to figure out which buttons to make appear on the menu depending on what abilities the player collected.
-        GameObject[] srcAbilityButtons = GameObject.FindGameObjectsWithTag("SourceAbilityButton");
-        GameObject srcAbilityButton = srcAbilityButtons[0];
-
-
-        switch (abilitySettings["FirePlasmaSrc"])
-        {
-          case abilityStatusCodes.collected:
-            srcAbilityButton.SetActive(true);
-            break;
-          case abilityStatusCodes.uncollected:
-            srcAbilityButton.SetActive(false);
-            break;
+        // Collecting the GameObject references for all the ability buttons. Might turn this into a function.
+        if (!abilityButtons.ContainsKey("FireSrcButton")) {
+          GameObject[] srcAbilityButtons = GameObject.FindGameObjectsWithTag("FireSrcButton");
+          if (srcAbilityButtons.Length != 0)
+          {
+            abilityButtons["FireSrcButton"] = srcAbilityButtons[0]; // this needs to be generalized
+          }
         }
 
+        // disable the buttons so that you can activate them depending on whether the player collected the ability
+        abilityButtons["FireSrcButton"].SetActive(false);
+
+        // different collected source abilities need to activate their respective buttons
+        if (abilityButtons.ContainsKey("FireSrcButton"))
+        {
+          abilityButtons["FireSrcButton"].SetActive(abilitySettings["FirePlasmaSrc"] == abilityStatusCodes.collected);
+        }
+        else
+        {
+
+        }
       }
       else
       {
