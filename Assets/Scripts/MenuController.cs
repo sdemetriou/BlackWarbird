@@ -8,8 +8,12 @@ public class MenuController : MonoBehaviour
 
   // The menu panel object
   public GameObject menuPanel;
+
   [SerializeField] private GameObject firePlasmaSrcButton;
   [SerializeField] private GameObject firePlasmaSrcButtonFunction;
+  [SerializeField] private GameObject sourceAbilityPanel;
+  [SerializeField] private GameObject transAbilityPanel;
+  
 
   private List<Dictionary<string, string>> abilityPipeline;
 
@@ -57,10 +61,6 @@ public class MenuController : MonoBehaviour
       if (abilityButtons.ContainsKey(buttonTag))
       {
         abilityButtons[buttonTag].SetActive(abilitySettings[buttonTag.Replace("Button", "")] == abilityStatusCodes.collected);
-      }
-      else
-      {
-
       }
     }
   }
@@ -110,15 +110,18 @@ public class MenuController : MonoBehaviour
         Time.timeScale = 0f;
         MenuState = true;
 
+        // NOTE: the below should occur for every ability type: transitional, source and sensor
         storeAbilityButtonReference();
-
         // disable the buttons so that you can activate them depending on whether the player collected the ability
         foreach (string buttonTag in abilityButtonTags)
         {
           abilityButtons[buttonTag].SetActive(false);
         }
-
         setAbilityButtonState();
+
+        // Turning off the ability panels on first instance when the menu pops up
+        transAbilityPanel.SetActive(false);
+        sourceAbilityPanel.SetActive(false);
 
         // state of the source button is to be active when collected.
       }
