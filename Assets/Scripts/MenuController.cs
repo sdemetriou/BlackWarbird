@@ -26,10 +26,43 @@ public class MenuController : MonoBehaviour
 
   public WeaponAbilities weaponScriptInstance;
   private Dictionary<string, GameObject> abilityButtons;
+  private List<string> abilityButtonTags;
 
   public void setAbilitySetting(string abilityName, abilityStatusCodes statusCode)
   {
     abilitySettings[abilityName] = statusCode;
+  }
+
+
+  private void storeAbilityButtonReference()
+  {
+    // Collecting the GameObject references for all the ability buttons. Might turn this into a function.
+    foreach (string buttonTag in abilityButtonTags)
+    {
+      if (!abilityButtons.ContainsKey(buttonTag)) {
+        GameObject[] srcAbilityButtons = GameObject.FindGameObjectsWithTag(buttonTag);
+        if (srcAbilityButtons.Length != 0)
+        {
+          abilityButtons[buttonTag] = srcAbilityButtons[0]; // this needs to be generalized
+        }
+      }
+    }
+  }
+
+
+  private void setAbilityButtonState()
+  {
+    foreach (string buttonTag in abilityButtonTags)
+    {
+      if (abilityButtons.ContainsKey(buttonTag))
+      {
+        abilityButtons[buttonTag].SetActive(abilitySettings[buttonTag.Replace("Button", "")] == abilityStatusCodes.collected);
+      }
+      else
+      {
+
+      }
+    }
   }
 
   void Awake()
@@ -47,7 +80,15 @@ public class MenuController : MonoBehaviour
     abilityButtons = new Dictionary<string, GameObject>()
     {
     };
+
+    // CONVENTION: ability button tags are to be the same as their corresponding names in abilitySettings,
+    // but with "Button" added in front.
+    abilityButtonTags = new List<string>()[
+      "FirePlasmaSrcButton"
+    ];
   }
+
+
   void Start()
   {
     MenuState = false;
@@ -69,27 +110,17 @@ public class MenuController : MonoBehaviour
         Time.timeScale = 0f;
         MenuState = true;
 
-        // Collecting the GameObject references for all the ability buttons. Might turn this into a function.
-        if (!abilityButtons.ContainsKey("FireSrcButton")) {
-          GameObject[] srcAbilityButtons = GameObject.FindGameObjectsWithTag("FireSrcButton");
-          if (srcAbilityButtons.Length != 0)
-          {
-            abilityButtons["FireSrcButton"] = srcAbilityButtons[0]; // this needs to be generalized
-          }
-        }
+        storeAbilityButtonReference();
 
         // disable the buttons so that you can activate them depending on whether the player collected the ability
-        abilityButtons["FireSrcButton"].SetActive(false);
-
-        // different collected source abilities need to activate their respective buttons
-        if (abilityButtons.ContainsKey("FireSrcButton"))
+        foreach (string buttonTag in abilityButtonTags)
         {
-          abilityButtons["FireSrcButton"].SetActive(abilitySettings["FirePlasmaSrc"] == abilityStatusCodes.collected);
+          abilityButtons[buttonTag].SetActive(false);
         }
-        else
-        {
 
-        }
+        setAbilityButtonState();
+
+        // state of the source button is to be active when collected.
       }
       else
       {
