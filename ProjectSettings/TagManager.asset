@@ -8,7 +8,7 @@ TagManager:
   - SensorLoot
   - MenuController
   - ObjectDatabase
-  - FireSrcButton
+  - FirePlasmaSrcButton
   layers:
   - Default
   - TransparentFX

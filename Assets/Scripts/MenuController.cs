@@ -83,9 +83,9 @@ public class MenuController : MonoBehaviour
 
     // CONVENTION: ability button tags are to be the same as their corresponding names in abilitySettings,
     // but with "Button" added in front.
-    abilityButtonTags = new List<string>()[
+    abilityButtonTags = new List<string>(){
       "FirePlasmaSrcButton"
-    ];
+    };
   }
 
 

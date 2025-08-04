@@ -1932,7 +1932,7 @@ GameObject:
   - component: {fileID: 1158824297}
   m_Layer: 5
   m_Name: Button
-  m_TagString: FireSrcButton
+  m_TagString: FirePlasmaSrcButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1953,7 +1953,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -365, y: -0.00021362}
+  m_AnchoredPosition: {x: -365, y: -0.00021362305}
   m_SizeDelta: {x: 118.86142, y: 118.86243}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1158824297
@@ -3104,7 +3104,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 81.89316, y: 195.42}
-  m_SizeDelta: {x: -163.81805, y: -677.176}
+  m_SizeDelta: {x: -163.81805, y: -677.17194}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1723160689
 MonoBehaviour:
