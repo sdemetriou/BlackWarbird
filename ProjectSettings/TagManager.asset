@@ -11,6 +11,7 @@ TagManager:
   - FirePlasmaSrcButton
   - FireLaserSrcButton
   - CombineTransButton
+  - CountEnemiesSensorButton
   layers:
   - Default
   - TransparentFX

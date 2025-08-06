@@ -76,7 +76,8 @@ public class MenuController : MonoBehaviour
     {
       {"FirePlasmaSrc", abilityStatusCodes.uncollected},
       {"FireLaserSrc", abilityStatusCodes.uncollected},
-      {"CombineTrans", abilityStatusCodes.uncollected}
+      {"CombineTrans", abilityStatusCodes.uncollected},
+      {"CountEnemiesSensor", abilityStatusCodes.uncollected}
     };
 
     // CONVENTION: ability button tags are to be the same as their corresponding names in abilitySettings,
@@ -84,7 +85,8 @@ public class MenuController : MonoBehaviour
     abilityButtonTags = new List<string>(){
       "FirePlasmaSrcButton",
       "FireLaserSrcButton",
-      "CombineTransButton"
+      "CombineTransButton",
+      "CountEnemiesSensorButton"
     };
 
     abilityButtons = new Dictionary<string, GameObject>()
