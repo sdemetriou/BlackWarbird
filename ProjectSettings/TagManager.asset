@@ -9,6 +9,8 @@ TagManager:
   - MenuController
   - ObjectDatabase
   - FirePlasmaSrcButton
+  - FireLaserSrcButton
+  - CombineTransButton
   layers:
   - Default
   - TransparentFX

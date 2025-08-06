@@ -5,11 +5,10 @@ using UnityEngine;
 public class Collectible : MonoBehaviour
 {
     // Start is called before the first frame update
-    private string abilityType;
+    public string abilityType;
 
     void Awake()
     {
-      abilityType = "FirePlasmaSrc";
     }
     
     void Start()

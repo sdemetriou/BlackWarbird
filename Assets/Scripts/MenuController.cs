@@ -74,18 +74,34 @@ public class MenuController : MonoBehaviour
 
     abilitySettings = new Dictionary<string, abilityStatusCodes>()
     {
-      {"FirePlasmaSrc", abilityStatusCodes.uncollected}
-    };
-
-    abilityButtons = new Dictionary<string, GameObject>()
-    {
+      {"FirePlasmaSrc", abilityStatusCodes.uncollected},
+      {"FireLaserSrc", abilityStatusCodes.uncollected},
+      {"CombineTrans", abilityStatusCodes.uncollected}
     };
 
     // CONVENTION: ability button tags are to be the same as their corresponding names in abilitySettings,
     // but with "Button" added in front.
     abilityButtonTags = new List<string>(){
-      "FirePlasmaSrcButton"
+      "FirePlasmaSrcButton",
+      "FireLaserSrcButton",
+      "CombineTransButton"
     };
+
+    abilityButtons = new Dictionary<string, GameObject>()
+    {
+    };
+  }
+
+  void setupAbilityButtons()
+  {
+    // NOTE: the below should occur for every ability type: transitional, source and sensor
+    storeAbilityButtonReference();
+    // disable the buttons so that you can activate them depending on whether the player collected the ability
+    foreach (string buttonTag in abilityButtonTags)
+    {
+      abilityButtons[buttonTag].SetActive(false);
+    }
+    setAbilityButtonState();
   }
 
 
@@ -97,7 +113,6 @@ public class MenuController : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    Debug.Log(abilitySettings["FirePlasmaSrc"]);
     if (Input.GetKeyDown(KeyCode.M))
     {
       MenuState = !MenuState;
@@ -110,14 +125,8 @@ public class MenuController : MonoBehaviour
         Time.timeScale = 0f;
         MenuState = true;
 
-        // NOTE: the below should occur for every ability type: transitional, source and sensor
-        storeAbilityButtonReference();
-        // disable the buttons so that you can activate them depending on whether the player collected the ability
-        foreach (string buttonTag in abilityButtonTags)
-        {
-          abilityButtons[buttonTag].SetActive(false);
-        }
-        setAbilityButtonState();
+        setupAbilityButtons();
+
 
         // Turning off the ability panels on first instance when the menu pops up
         transAbilityPanel.SetActive(false);
