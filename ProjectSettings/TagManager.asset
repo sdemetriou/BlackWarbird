@@ -6,7 +6,12 @@ TagManager:
   tags:
   - Enemy
   - SensorLoot
-  - Ground
+  - MenuController
+  - ObjectDatabase
+  - FirePlasmaSrcButton
+  - FireLaserSrcButton
+  - CombineTransButton
+  - CountEnemiesSensorButton
   layers:
   - Default
   - TransparentFX
