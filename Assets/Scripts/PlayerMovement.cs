@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
     private bool jumpPressed;
+    [Header("Attack Settings")]
     public bool isAttacking = false;
     private float attackDuration = 0.5f;
     private float attackTimer = 0f;
@@ -24,22 +25,28 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundPos;
 
 
+
     void Awake()
     {
+
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         anim.SetBool("idle", true);
         anim.SetBool("walk", false);
     }
 
+
     void Start()
     {
         GetComponent<Health>().onDeathCallback += HandleDeath;
-
     }
 
     void Update()
     {
+        if (!gameObject) return;
+        if (GetComponent<Health>().isDead)
+            HandleDeath();
+        // Debug.Log($"PlayerMovement - transform.position: {transform.position}");
         SetVelocity();
         if (Input.GetMouseButtonDown(0))
         {
@@ -61,6 +68,9 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("attack", false);
             }
         }
+
+        damageTimer -= Time.deltaTime;
+
     }
 
     void HandleDeath()
@@ -74,14 +84,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            damageTimer -= Time.deltaTime;
             if (damageTimer <= 0f)
             {
                 Health health = GetComponent<Health>();
                 if (health != null)
                 {
                     health.TakeDamage(10);
-                    damagedEnemies.Add(other); // Add to prevent double-hit
+                    Debug.Log($"Player health: {health}");
+                    damagedEnemies.Add(other);
                 }
                 damageTimer = damageRate;
             }
@@ -107,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
     bool IsGrounded()
     {
         bool IsGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundPos.transform.position.y, groundLayer);
-        Debug.Log("Grounded: " + IsGrounded);
+        // Debug.Log("Grounded: " + IsGrounded);
         return IsGrounded;
     }
 

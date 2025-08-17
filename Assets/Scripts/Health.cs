@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
     public int maxHealth = 100;
-    private int currentHealth;
+    public int currentHealth;
     public bool isDead;
     private Slider healthBar;
     public delegate void OnDeath();
@@ -17,7 +13,7 @@ public class Health : MonoBehaviour
 
     private Vector2 entityPos;
     private RectTransform rect;
-    public Vector3 yOffset;
+    public Vector3 yOffset = new Vector3(0, 1.5f, 0);
     private GameObject healthBarObject;
 
     void Awake()
@@ -49,6 +45,7 @@ public class Health : MonoBehaviour
             enabled = false;
             return;
         }
+
 
         healthBar.maxValue = maxHealth;
         healthBar.value = currentHealth;
@@ -89,8 +86,10 @@ public class Health : MonoBehaviour
 
     void Update()
     {
-        entityPos = transform.position + yOffset;
-        var entityScreenPos = Camera.main.WorldToScreenPoint(entityPos);
-        rect.position = entityScreenPos;
+        // Debug.Log($"{gameObject.tag} Health - transform.position: {transform.position}");
+        Vector3 worldOffset = yOffset;
+       // entityPos = transform.position + worldOffset;
+        Vector3 entityScreenPos = Camera.main.WorldToScreenPoint(transform.position + worldOffset);
+        rect.transform.position = entityScreenPos;
     }
 }

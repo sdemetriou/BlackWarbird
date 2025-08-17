@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - SensorLoot
+  - Ground
   layers:
   - Default
   - TransparentFX
