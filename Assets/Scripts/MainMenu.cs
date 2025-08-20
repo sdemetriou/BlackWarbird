@@ -7,7 +7,8 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        //SceneManager.LoadScene("Level1"); // replace with first level name
+        Time.timeScale = 1f; // make sure game is unfrozen
+        SceneManager.LoadScene("Level 1"); 
         Debug.Log("start");
     }
 
