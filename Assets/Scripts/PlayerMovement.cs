@@ -66,8 +66,11 @@ public class PlayerMovement : MonoBehaviour
     void HandleDeath()
     {
         // gameObject.SetActive(false);
-        Destroy(gameObject);
-        SceneManager.LoadScene("SampleScene", 0);
+        // disable player controls
+        GetComponent<PlayerMovement>().enabled = false;
+
+        // show UI
+        FindObjectOfType<DeathScreen>().ShowDeathScreen();
     }
 
     void OnTriggerStay2D(Collider2D other)

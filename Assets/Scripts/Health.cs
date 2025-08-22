@@ -59,6 +59,8 @@ public class Health : MonoBehaviour
         if (damage <= 0) return;
         currentHealth = (int)Mathf.Clamp(currentHealth - damage, 0f, maxHealth);
         healthBar.value = currentHealth;
+        if (healthBar != null)
+            healthBar.value = currentHealth;
         if (currentHealth <= 0)
             Die();
 
@@ -89,6 +91,8 @@ public class Health : MonoBehaviour
 
     void Update()
     {
+        if (rect == null || healthBarObject == null) return;
+
         entityPos = transform.position + yOffset;
         var entityScreenPos = Camera.main.WorldToScreenPoint(entityPos);
         rect.position = entityScreenPos;
