@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
     bool IsGrounded()
     {
         bool IsGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundPos.transform.position.y, groundLayer);
-        Debug.Log("Grounded: " + IsGrounded);
+        //Debug.Log("Grounded: " + IsGrounded);
         return IsGrounded;
     }
 

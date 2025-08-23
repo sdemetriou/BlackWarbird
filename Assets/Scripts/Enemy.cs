@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     private float damageCooldown = 0.5f;
     private float damageTimer = 0f;
 
+    public bool isDead = false;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,13 +31,22 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        GetComponent<Health>().onDeathCallback += HandleDeath;
-        if (player) attacked = player.gameObject.GetComponent<PlayerMovement>().isAttacking;
-
+        // GetComponent<Health>().onDeathCallback += HandleDeath;
+        //  if (player) attacked = player.gameObject.GetComponent<PlayerMovement>().isAttacking;
+        Health health = GetComponent<Health>();
+        if (health != null)
+            health.onDeathCallback += HandleDeath;
     }
 
     void HandleDeath()
     {
+        isDead = true;
+        Debug.Log("Enemy died: " + gameObject.name);
+        // Notify LevelManager
+        LevelManager levelManager = FindObjectOfType<LevelManager>();
+        if (levelManager != null)
+            levelManager.EnemyKilled();
+
         Destroy(gameObject);
     }
 
