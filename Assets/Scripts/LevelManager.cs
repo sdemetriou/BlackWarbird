@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+
+
 
 public class LevelManager : MonoBehaviour
 {
@@ -18,7 +21,11 @@ public class LevelManager : MonoBehaviour
     public void EnemyKilled()
     {
         totalEnemies--;
-        Debug.Log("Enemy killed! Remaining: " + totalEnemies);
+
+        GameStats.enemiesKilled++;
+        GameStats.score += 100;
+
+        Debug.Log("Enemy killed. Total kills: " + GameStats.enemiesKilled);
 
         if (totalEnemies <= 0)
         {
@@ -34,6 +41,4 @@ public class LevelManager : MonoBehaviour
         }
     }
 }
-
-
 
