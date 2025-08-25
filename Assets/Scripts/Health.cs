@@ -70,6 +70,11 @@ public class Health : MonoBehaviour
     {
         isDead = true;
         Debug.Log("has died");
+
+        // Reset score & kills when player dies:
+        GameStats.score = 0;
+        GameStats.enemiesKilled = 0;
+
         Destroy(healthBarObject);
         onDeathCallback?.Invoke();
     }

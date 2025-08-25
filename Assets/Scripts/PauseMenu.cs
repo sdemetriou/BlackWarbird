@@ -37,6 +37,8 @@ public class PauseMenu : MonoBehaviour
     public void LoadMainMenu()
     {
         Time.timeScale = 1f; // reset time before leaving
+        GameStats.score = 0;
+        GameStats.enemiesKilled = 0;
         SceneManager.LoadScene("MainMenu");
     }
 }
