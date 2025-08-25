@@ -69,15 +69,19 @@ public class Health : MonoBehaviour
     public void Die()
     {
         isDead = true;
-        Debug.Log("has died");
+        Debug.Log(gameObject.name + " has died");
 
-        // Reset score & kills when player dies:
-        GameStats.score = 0;
-        GameStats.enemiesKilled = 0;
+        // Only reset score if the PLAYER dies
+        if (CompareTag("Player"))
+        {
+            GameStats.score = 0;
+            GameStats.enemiesKilled = 0;
+        }
 
         Destroy(healthBarObject);
         onDeathCallback?.Invoke();
     }
+
 
     public void Heal(int amount)
     {
