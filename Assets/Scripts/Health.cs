@@ -105,5 +105,11 @@ public class Health : MonoBehaviour
         entityPos = transform.position + yOffset;
         var entityScreenPos = Camera.main.WorldToScreenPoint(entityPos);
         rect.position = entityScreenPos;
+
+        // Kill player if they fall off map:
+        if (CompareTag("Player") && transform.position.y < -10f)
+        {
+            Die();
+        }
     }
 }
